@@ -51,6 +51,7 @@ class User
      */
     private $password;
 
+<<<<<<< HEAD
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -67,6 +68,8 @@ class User
      */
     private $estActif;
 
+=======
+>>>>>>> a1486267c72d37de9dbd2d35ee384f30a461e6a3
 
 
     public function getId(): ?int
