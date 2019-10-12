@@ -41,16 +41,16 @@ class UserController extends FOSRestController
         $data = json_decode($request->getContent(), true);
         $form->submit($data);
         if ($form->isSubmitted() && $form->isValid()) {
-            //if($repository->findOneBy(["email", $request ->attributes ->get("email")]) == null) {
+            if($repository->findOneBy(["email" => $data["email"]]) == null) {
                 $em = $this->getDoctrine()->getManager();
                 $user->setToken(urlencode(sha1($user->getEmail() . "" . $user->getPassword())));
                 $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
                 $em->persist($user);
                 $em->flush();
                 return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_CREATED));
-            /*}else{
+            }else{
                 return $this->handleView($this->view(['status' => 'not_fount'], Response::HTTP_NOT_FOUND));
-            }*/
+            }
         }
         return $this->handleView($this->view($form->getErrors()));
     }
