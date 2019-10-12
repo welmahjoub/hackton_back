@@ -14,3 +14,12 @@ fos_rest:
     view_response_listener: 'force'
     formats:
       json: true
+
+fos_user:
+  db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+  firewall_name: main
+  user_class: Src\Entity\User
+  from_email:
+    address: "mahjoubwel@gmail.com"
+    sender_name: "M2233aa"
+

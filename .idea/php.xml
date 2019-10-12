@@ -78,6 +78,20 @@
       <path value="$PROJECT_DIR$/skeleton/vendor/symfony/maker-bundle" />
       <path value="$PROJECT_DIR$/skeleton/vendor/symfony/web-server-bundle" />
       <path value="$PROJECT_DIR$/skeleton/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/friendsofsymfony/user-bundle" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/security-guard" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/twig-bundle" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/twig-bridge" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/security-csrf" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/friendsofsymfony/oauth2-php" />
+      <path value="$PROJECT_DIR$/skeleton/vendor/friendsofsymfony/oauth-server-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

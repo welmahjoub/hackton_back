@@ -79,7 +79,7 @@ class MissionController extends FOSRestController
      *
      * @return Response
      */
-    public function updateUserAction(Request $request){
+    public function updateMission(Request $request){
 
         $data = json_decode($request->getContent(), true);
         $token = $data["token"]; //$request ->attributes ->get("token");
