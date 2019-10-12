@@ -48,13 +48,14 @@ class User
      * @var
      * @ORM\Column(type="string")
      **/
-    protected $email;
+    private $email;
+
 
     /**
      * @var
      * @ORM\Column(type="string")
      **/
-    protected $password;
+    private $password;
 
     /**
      * @var
