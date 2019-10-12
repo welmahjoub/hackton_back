@@ -17,6 +17,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class MissionController extends FOSRestController
 {
     /**
+     * getAllMissionsByUser.
+     * @Rest\Get("/mission/all/{token}")
+     *
+     * @return Response
+     */
+    public function getAllMissionsByUser($token)
+    {
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->findBy(['token'=>$token]);
+
+        $repository = $this->getDoctrine()->getRepository(Mission::class);
+        $missions = $repository->findBy(['user'=>$user->getid()]);
+        return $this->handleView($this->view($missions));
+    }
+
+    /**
      * Lists all users.
      * @Rest\Get("/mission/all")
      *
