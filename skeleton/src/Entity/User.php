@@ -2,19 +2,20 @@
 
 namespace App\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User //implements \serializable
+class User extends BaseUser //implements \serializable
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -33,25 +34,25 @@ class User //implements \serializable
 
     /**
      * @var
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=true)
      */
     private $nom;
 
     /**
      * @var
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=true)
      */
     private $prenom;
 
-    /**
+    /*
      * @var
      * @ORM\Column(type="string")
-     */
-    private $email;
+     **/
+    protected $email;
 
     /**
      * @var
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=true)
      */
     private $token;
 
@@ -65,11 +66,11 @@ class User //implements \serializable
      */
     private $missions;
 
-    /**
+    /*
      * @var
      * @ORM\Column(type="string")
-     */
-    private $password;
+     **/
+    protected $password;
 
     /**
      * @return mixed
@@ -183,32 +184,5 @@ class User //implements \serializable
         $this->password = $password;
     }
 
-    /**
-     * @see \Serializable::serialize()
-     */
-    /*public function serialize(){
-        return serialize(array(
-            $this->id,
-            $this->email,
-            $this->password,
-            $this->nom,
-            $this->prenom,
-            $this->token
-        ));
-    }
 
-    /**
-     * @see \Serializable::unserialize()
-     */
-    /*public function unserialize($serialized)
-    {
-        list(
-            $this->id,
-            $this->email,
-            $this->password,
-            $this->nom,
-            $this->prenom,
-            $this->token
-            ) = unserialize($serialized, array('allowed_classes' => false));
-    }*/
 }
