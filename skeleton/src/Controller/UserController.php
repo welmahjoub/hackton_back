@@ -41,14 +41,15 @@ class UserController extends FOSRestController
         $data = json_decode($request->getContent(), true);
         $form->submit($data);
         if ($form->isSubmitted() && $form->isValid()) {
-            if($repository->findOneBy(["email", $request ->attributes ->get("email")]) == null) {
+            if($repository->findOneBy(["email" => $data["email"]]) == null) {
                 $em = $this->getDoctrine()->getManager();
                 $user->setToken(urlencode(sha1($user->getEmail() . "" . $user->getPassword())));
+                $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
                 $em->persist($user);
                 $em->flush();
                 return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_CREATED));
             }else{
-                return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_FORBIDDEN));
+                return $this->handleView($this->view(['status' => 'not_fount'], Response::HTTP_NOT_FOUND));
             }
         }
         return $this->handleView($this->view($form->getErrors()));
@@ -87,6 +88,7 @@ class UserController extends FOSRestController
         $form->submit($data);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
             $em->persist($user);
             $em->flush();
             return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_OK));
@@ -102,10 +104,19 @@ class UserController extends FOSRestController
      * @return Response
      */
     public function authUserAction(Request $request){
-        $email = $request ->attributes ->get("email");
-        $mdp = $request ->attributes ->get("password");
+        $data = json_decode($request->getContent(), true);
+        $email = $data["email"];
 
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findOneBy(['email' => $email]);
+        if($user != null){
+            if(password_verify($data["password"], $user->getPassword())){
+                return $this->handleView($this->view($user));
+            }else{
+                return $this->handleView($this->view(['status' => 'not_allowed'], Response::HTTP_UNAUTHORIZED));
+            }
+        }else{
+            return $this->handleView($this->view(['status' => 'not_found'], Response::HTTP_NOT_FOUND));
+        }
     }
 }
