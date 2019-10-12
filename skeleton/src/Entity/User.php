@@ -17,6 +17,21 @@ class User implements \serializable
     private $id;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateConfirmation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $estActif;
+
+    /**
      * @var
      * @ORM\Column(type="string")
      */
@@ -40,6 +55,15 @@ class User implements \serializable
      */
     private $token;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Competence", mappedBy="missions")
+     */
+    private $competences;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Mission", mappedBy="user")
+     */
+    private $missions;
 
     /**
      * @var
@@ -47,11 +71,20 @@ class User implements \serializable
      */
     private $password;
 
-
-
-    public function getId(): ?int
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     /**
@@ -116,6 +149,22 @@ class User implements \serializable
     public function setToken($token): void
     {
         $this->token = $token;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompetences()
+    {
+        return $this->competences;
+    }
+
+    /**
+     * @param mixed $competences
+     */
+    public function setCompetences($competences): void
+    {
+        $this->competences = $competences;
     }
 
     /**

@@ -23,8 +23,9 @@ class UserController extends FOSRestController
     public function getUserAction()
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $movies = $repository->findall();
-        return $this->handleView($this->view($movies));
+        $users = $repository->findall();
+
+        return $this->handleView($this->view($users));
     }
     /**
      * Create User.
@@ -93,6 +94,8 @@ class UserController extends FOSRestController
             return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_OK));
         }
         return $this->handleView($this->view($form->getErrors()));
+
+
     }
 
     /**
