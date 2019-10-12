@@ -17,6 +17,21 @@ class User
     private $id;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateConfirmation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $estActif;
+
+    /**
      * @var
      * @ORM\Column(type="string")
      */
@@ -46,35 +61,30 @@ class User
     private $competences;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Mission", mappedBy="user")
+     */
+    private $missions;
+
+    /**
      * @var
      * @ORM\Column(type="string")
      */
     private $password;
 
-<<<<<<< HEAD
-
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @return mixed
      */
-    private $dateConfirmation;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateCreation;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $estActif;
-
-=======
->>>>>>> a1486267c72d37de9dbd2d35ee384f30a461e6a3
-
-
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     /**
@@ -144,6 +154,22 @@ class User
     /**
      * @return mixed
      */
+    public function getCompetences()
+    {
+        return $this->competences;
+    }
+
+    /**
+     * @param mixed $competences
+     */
+    public function setCompetences($competences): void
+    {
+        $this->competences = $competences;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getPassword()
     {
         return $this->password;
@@ -156,6 +182,14 @@ class User
     {
         $this->password = $password;
     }
+
+
+
+
+
+
+
+
 
 
 }
