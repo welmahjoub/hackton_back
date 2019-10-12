@@ -40,6 +40,10 @@ class User
      */
     private $token;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Competence", mappedBy="missions")
+     */
+    private $competences;
 
     /**
      * @var
@@ -47,22 +51,22 @@ class User
      */
     private $password;
 
+
     /**
-     * User constructor.
-     * @param $nom
-     * @param $prenom
-     * @param $email
-     * @param $token
-     * @param $password
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    public function __construct($nom, $prenom, $email, $token, $password)
-    {
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->email = $email;
-        $this->token = $token;
-        $this->password = $password;
-    }
+    private $dateConfirmation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $estActif;
+
 
 
     public function getId(): ?int
