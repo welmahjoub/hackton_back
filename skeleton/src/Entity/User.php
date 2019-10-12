@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User extends BaseUser //implements \serializable
+class User
 {
     /**
      * @ORM\Id()
@@ -44,11 +44,17 @@ class User extends BaseUser //implements \serializable
      */
     private $prenom;
 
-    /*
+    /**
      * @var
      * @ORM\Column(type="string")
      **/
     protected $email;
+
+    /**
+     * @var
+     * @ORM\Column(type="string")
+     **/
+    protected $password;
 
     /**
      * @var
@@ -66,11 +72,7 @@ class User extends BaseUser //implements \serializable
      */
     private $missions;
 
-    /*
-     * @var
-     * @ORM\Column(type="string")
-     **/
-    protected $password;
+
 
     /**
      * @return mixed
@@ -182,6 +184,70 @@ class User extends BaseUser //implements \serializable
     public function setPassword($password): void
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateConfirmation()
+    {
+        return $this->dateConfirmation;
+    }
+
+    /**
+     * @param mixed $dateConfirmation
+     */
+    public function setDateConfirmation($dateConfirmation): void
+    {
+        $this->dateConfirmation = $dateConfirmation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @param mixed $dateCreation
+     */
+    public function setDateCreation($dateCreation): void
+    {
+        $this->dateCreation = $dateCreation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstActif()
+    {
+        return $this->estActif;
+    }
+
+    /**
+     * @param mixed $estActif
+     */
+    public function setEstActif($estActif): void
+    {
+        $this->estActif = $estActif;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMissions()
+    {
+        return $this->missions;
+    }
+
+    /**
+     * @param mixed $missions
+     */
+    public function setMissions($missions): void
+    {
+        $this->missions = $missions;
     }
 
 
