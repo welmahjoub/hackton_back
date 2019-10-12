@@ -34,15 +34,21 @@ class UserController extends FOSRestController
      */
     public function postUserAction(Request $request)
     {
+        $repository = $this->getDoctrine()->getRepository(User::class);
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $data = json_decode($request->getContent(), true);
         $form->submit($data);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-            return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_CREATED));
+            if($repository->findOneBy(["email", $request ->attributes ->get("email")]) == null) {
+                $em = $this->getDoctrine()->getManager();
+                $user->setToken(urlencode(sha1($user->getEmail() . "" . $user->getPassword())));
+                $em->persist($user);
+                $em->flush();
+                return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_CREATED));
+            }else{
+                return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_FORBIDDEN));
+            }
         }
         return $this->handleView($this->view($form->getErrors()));
     }
@@ -85,5 +91,18 @@ class UserController extends FOSRestController
             return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_OK));
         }
         return $this->handleView($this->view($form->getErrors()));
+    }
+
+    /**
+     * @Rest\Post("/user/authenticate")
+     *
+     * @return Response
+     */
+    public function authUserAction(Request $request){
+        $email = $request ->attributes ->get("email");
+        $mdp = $request ->attributes ->get("password");
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->findOneBy(['email' => $email]);
     }
 }
