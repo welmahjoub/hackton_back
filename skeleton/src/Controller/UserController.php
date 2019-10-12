@@ -27,8 +27,8 @@ class UserController extends FOSRestController
         return $this->handleView($this->view($movies));
     }
     /**
-     * Create Movie.
-     * @Rest\Post("/user")
+     * Create User.
+     * @Rest\Post("/user/create")
      *
      * @return Response
      */
@@ -45,5 +45,31 @@ class UserController extends FOSRestController
             return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_CREATED));
         }
         return $this->handleView($this->view($form->getErrors()));
+    }
+
+    /**
+     * @Rest\Delete("/user/delete/{token}")
+     *
+     * @return Response
+     */
+    public function deleteUserAction( Request $request){
+        $token = $request ->attributes ->get("token");
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->findOneBy(['token' => $token]);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+
+        return $this->handleView($this->view('ok'));
+    }
+
+    /**
+     * @Rest\Delete("/user/update/{token}")
+     *
+     * @return Response
+     */
+    public function updateUserAction(Request $request){
+
     }
 }

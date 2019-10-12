@@ -47,22 +47,6 @@ class User
      */
     private $password;
 
-    /**
-     * User constructor.
-     * @param $nom
-     * @param $prenom
-     * @param $email
-     * @param $token
-     * @param $password
-     */
-    public function __construct($nom, $prenom, $email, $token, $password)
-    {
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->email = $email;
-        $this->token = $token;
-        $this->password = $password;
-    }
 
 
     public function getId(): ?int
